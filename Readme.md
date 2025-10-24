@@ -1,0 +1,1 @@
+This is a simple front end quiz app developed using React.
