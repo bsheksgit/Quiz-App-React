@@ -1,4 +1,6 @@
 import logo from "./assets/quiz-logo.png";
+import QuizQuestion from "./components/QuizQuestion";
+import Summary from "./components/Summary";
 
 function App() {
     return (
@@ -7,11 +9,7 @@ function App() {
         <img src={logo} alt="Logo" />
         <h1>React Quiz</h1>
         </header>
-        <div id="quiz">
-        <div id ="question">
-
-        </div>
-        </div>
+        <Summary />
         </>
     );
 }
