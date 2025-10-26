@@ -1,22 +1,27 @@
 import { QuizContext } from "../store/quiz-app-context";
 import { useContext } from "react";
+import ProgressBar from "./ProgressBar";
 
 export default function QuizQuestion(){
 
         const quizContext = useContext(QuizContext);
 
+        function handleSelectAnswer(index=0){
+            quizContext.setSelectedAnswerIndex(index);
+            console.log(index);
+        }
+
         return(
         <>
         <section id="quiz">
         <div id ="question">
-            <progress value={40} max={100} />
-            <h2>{quizContext.questionOptions[0].text}</h2>
+            <ProgressBar />
+            <h2>{quizContext.questionOptions[quizContext.currentQuestion].text}</h2>
         </div>
         <ul id="answers">
-        <li className="answer"><button className="selected">A. useState</button></li>
-        <li className="answer"><button>B. useEffect</button></li>
-        <li className="answer"><button>C. useMemo</button></li>
-        <li className="answer"><button>D. useRef</button></li>
+        {quizContext.questionOptions[quizContext.currentQuestion].answers.map((answer, index) => 
+            <li key={index} className="answer" onClick={() => handleSelectAnswer(index)}><button>{answer}</button></li>
+            )}
         </ul>
         </section>
         </>

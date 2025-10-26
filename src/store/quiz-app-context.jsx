@@ -1,8 +1,12 @@
-import {createContext} from "react";
+import {createContext, useState} from "react";
 
 export const QuizContext = createContext(
     {
-        questionOptions: [{}]
+        questionOptions: [{}],
+        currentQuestion: 0,
+        setCurrentQuestion : () => {},
+        selectedAnswerIndex: -1,
+        setSelectedAnswerIndex: () => {}
     }
 );
 
@@ -82,8 +86,15 @@ export default function QuizContextProvider({children})
   },
 ];
 
+const [currentQuestion, setCurrentQuestion] = useState(0);
+const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
+
 const ctxValue = {
-    questionOptions
+    questionOptions,
+    currentQuestion,
+    setCurrentQuestion,
+    selectedAnswerIndex,
+    setSelectedAnswerIndex
 };
 
 return <QuizContext.Provider value={ctxValue}>
