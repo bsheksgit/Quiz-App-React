@@ -6,7 +6,11 @@ export const QuizContext = createContext(
         currentQuestion: 0,
         setCurrentQuestion : () => {},
         selectedAnswerIndex: -1,
-        setSelectedAnswerIndex: () => {}
+        setSelectedAnswerIndex: () => {},
+        progressBarCssClass: "",
+        setProgressBarCssClass: () => {},
+        selectedAnswerCssClass: "",
+        setSelectedAnswerCssClass: () => {}
     }
 );
 
@@ -88,13 +92,19 @@ export default function QuizContextProvider({children})
 
 const [currentQuestion, setCurrentQuestion] = useState(0);
 const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
+const [progressBarCssClass, setProgressBarCssClass] = useState(undefined);
+const [selectedAnswerCssClass, setSelectedAnswerCssClass] = useState(undefined);
 
 const ctxValue = {
     questionOptions,
     currentQuestion,
     setCurrentQuestion,
     selectedAnswerIndex,
-    setSelectedAnswerIndex
+    setSelectedAnswerIndex,
+    progressBarCssClass,
+    setProgressBarCssClass,
+    selectedAnswerCssClass,
+    setSelectedAnswerCssClass
 };
 
 return <QuizContext.Provider value={ctxValue}>

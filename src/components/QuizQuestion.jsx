@@ -8,6 +8,8 @@ export default function QuizQuestion(){
 
         function handleSelectAnswer(index=0){
             quizContext.setSelectedAnswerIndex(index);
+            quizContext.setSelectedAnswerCssClass("selected");
+            quizContext.setProgressBarCssClass("answered");
             console.log(index);
         }
 
@@ -20,7 +22,11 @@ export default function QuizQuestion(){
         </div>
         <ul id="answers">
         {quizContext.questionOptions[quizContext.currentQuestion].answers.map((answer, index) => 
-            <li key={index} className="answer" onClick={() => handleSelectAnswer(index)}><button>{answer}</button></li>
+            <li key={index} className="answer" onClick={() => handleSelectAnswer(index)}>
+                <button className={index===quizContext.selectedAnswerIndex? quizContext.selectedAnswerCssClass:undefined}>
+                {answer}
+                </button>
+            </li>
             )}
         </ul>
         </section>

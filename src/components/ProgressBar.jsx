@@ -11,18 +11,18 @@ export default function ProgressBar(){
         useEffect(() => {
             setMaxValue(10000);
             setProgressValue(10000); // reset to full value
+            quizContext.setProgressBarCssClass(undefined);
 
             let interval = setInterval(() => {
             setProgressValue((prev) => {
                 if (prev <= 0) {
                 clearInterval(interval);
+                quizContext.setCurrentQuestion((prevValue) => (prevValue < 6 ? prevValue + 1 : 0));
                 return 0;
                 }
                 return prev - 50;
             });
             }, 50);
-            quizContext.setCurrentQuestion((prevValue) => prevValue+1);
-
             // cleanup when effect re-runs or component unmounts
             return () => clearInterval(interval);
         }, [quizContext.currentQuestion]);
@@ -38,6 +38,7 @@ export default function ProgressBar(){
             setProgressValue((prev) => {
                 if (prev <= 0) {
                 clearInterval(interval);
+                quizContext.setProgressBarCssClass(undefined);
                 return 0;
                 }
                 return prev - 50;
@@ -49,7 +50,7 @@ export default function ProgressBar(){
 
     return (
         <progress 
-        id = "question"
+        className={quizContext.progressBarCssClass}
         value={progressValue}
         max={maxValue}/>
     );
