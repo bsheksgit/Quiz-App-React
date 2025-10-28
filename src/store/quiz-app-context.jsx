@@ -7,10 +7,12 @@ export const QuizContext = createContext(
         setCurrentQuestion : () => {},
         selectedAnswerIndex: -1,
         setSelectedAnswerIndex: () => {},
+        selectedAnswerArray: [],
         progressBarCssClass: "",
         setProgressBarCssClass: () => {},
         selectedAnswerCssClass: "",
-        setSelectedAnswerCssClass: () => {}
+        setSelectedAnswerCssClass: () => {},
+        sleep: () => {}
     }
 );
 
@@ -94,6 +96,12 @@ const [currentQuestion, setCurrentQuestion] = useState(0);
 const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
 const [progressBarCssClass, setProgressBarCssClass] = useState(undefined);
 const [selectedAnswerCssClass, setSelectedAnswerCssClass] = useState(undefined);
+const selectedAnswerArray = [];
+
+// Sleep function
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 const ctxValue = {
     questionOptions,
@@ -101,10 +109,12 @@ const ctxValue = {
     setCurrentQuestion,
     selectedAnswerIndex,
     setSelectedAnswerIndex,
+    selectedAnswerArray,
     progressBarCssClass,
     setProgressBarCssClass,
     selectedAnswerCssClass,
-    setSelectedAnswerCssClass
+    setSelectedAnswerCssClass,
+    sleep
 };
 
 return <QuizContext.Provider value={ctxValue}>

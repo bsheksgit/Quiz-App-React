@@ -22,8 +22,12 @@ export default function QuizQuestion(){
         </div>
         <ul id="answers">
         {quizContext.questionOptions[quizContext.currentQuestion].answers.map((answer, index) => 
-            <li key={index} className="answer" onClick={() => handleSelectAnswer(index)}>
-                <button className={index===quizContext.selectedAnswerIndex? quizContext.selectedAnswerCssClass:undefined}>
+            <li key={index} 
+            className="answer" 
+            onClick={() => handleSelectAnswer(index)}>
+                <button 
+                className={index===quizContext.selectedAnswerIndex? quizContext.selectedAnswerCssClass:undefined}
+                disabled={quizContext.selectedAnswerIndex!=-1 && quizContext.selectedAnswerIndex != index}>
                 {answer}
                 </button>
             </li>
