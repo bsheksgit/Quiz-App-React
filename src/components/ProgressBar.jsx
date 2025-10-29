@@ -10,19 +10,33 @@ export default function ProgressBar(){
         const tenSecTimerRef = useRef();
         const twoSecTimerRef = useRef();
 
+        // Logging the state change.
+        useEffect(() => {
+            if(quizContext.currentQuestion === 6){
+                console.log(quizContext.selectedAnswerArray);
+            }
+        }, [quizContext.selectedAnswerArray]);
+
+
         // Effect for when currentQuestion changes
         useEffect(() => {
-        setMaxValue(10000);
-        setProgressValue(10000);
+        setMaxValue(1000);
+        setProgressValue(1000);
         quizContext.setProgressBarCssClass(undefined);
+          // Clear previous interval if exists
+        if (tenSecTimerRef.current) {
+            clearInterval(tenSecTimerRef.current);
+        }
 
         tenSecTimerRef.current = setInterval(() => {
             setProgressValue((prev) => {
             if (prev <= 0) {
+                if(quizContext.currentQuestion <= 6 && quizContext.selectedAnswerArray.length < 7){
+                    quizContext.setSelectedAnswerArray(prevArray=>[...prevArray, -1]);
+                }
                 clearInterval(tenSecTimerRef.current);
-                quizContext.setCurrentQuestion(
-                (prevValue) => (prevValue < 6 ? prevValue + 1 : 0)
-                );
+                quizContext.setSelectedAnswerCssClass(undefined);
+                quizContext.setCurrentQuestion((prevValue) => ((prevValue < 6 && prevValue >=0) ? prevValue + 1 : 6 ));
                 return 0;
             }
             return prev - 50;
@@ -48,22 +62,25 @@ export default function ProgressBar(){
             setProgressValue((prev) => {
             if (prev <= 0) {
                 clearInterval(twoSecTimerRef.current);
-
+                
                 (async () => {
                 if (quizContext.selectedAnswerIndex === 0) {
                     quizContext.setSelectedAnswerCssClass("correct");
                     quizContext.setProgressBarCssClass(undefined);
                     setProgressValue(maxValue);
-                    await quizContext.sleep(1000);  // <-- 2-second pause here
-                    quizContext.setCurrentQuestion((prevValue) => (prevValue < 6 ? prevValue + 1 : 0));
+                    quizContext.setSelectedAnswerArray(prevArray=>[...prevArray, quizContext.selectedAnswerIndex]);
+                    await quizContext.sleep(1000);  // <-- 1-second pause here
+                    quizContext.setCurrentQuestion((prevValue) => ((prevValue < 6 && prevValue >=0) ? prevValue + 1 : 6 ));
                     quizContext.setSelectedAnswerCssClass(undefined);
                     quizContext.setSelectedAnswerIndex(-1);
-                } else {
+                }
+                else {
                     quizContext.setSelectedAnswerCssClass("wrong");
                     quizContext.setProgressBarCssClass(undefined);
                     setProgressValue(maxValue);
-                    await quizContext.sleep(1000);  // <-- 2-second pause here
-                    quizContext.setCurrentQuestion((prevValue) => (prevValue < 6 ? prevValue + 1 : 0));
+                    quizContext.setSelectedAnswerArray(prevArray=>[...prevArray, quizContext.selectedAnswerIndex]);
+                    await quizContext.sleep(1000);  // <-- 1-second pause here
+                    quizContext.setCurrentQuestion((prevValue) => ((prevValue < 6 && prevValue >=0) ? prevValue + 1 : 6 ));
                     quizContext.setSelectedAnswerCssClass(undefined);
                     quizContext.setSelectedAnswerIndex(-1);
                 }

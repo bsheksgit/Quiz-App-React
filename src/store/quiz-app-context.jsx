@@ -8,6 +8,7 @@ export const QuizContext = createContext(
         selectedAnswerIndex: -1,
         setSelectedAnswerIndex: () => {},
         selectedAnswerArray: [],
+        setSelectedAnswerArray: () => {},
         progressBarCssClass: "",
         setProgressBarCssClass: () => {},
         selectedAnswerCssClass: "",
@@ -96,7 +97,7 @@ const [currentQuestion, setCurrentQuestion] = useState(0);
 const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
 const [progressBarCssClass, setProgressBarCssClass] = useState(undefined);
 const [selectedAnswerCssClass, setSelectedAnswerCssClass] = useState(undefined);
-const selectedAnswerArray = [];
+const [selectedAnswerArray, setSelectedAnswerArray] = useState([]);
 
 // Sleep function
 function sleep(ms) {
@@ -110,6 +111,7 @@ const ctxValue = {
     selectedAnswerIndex,
     setSelectedAnswerIndex,
     selectedAnswerArray,
+    setSelectedAnswerArray,
     progressBarCssClass,
     setProgressBarCssClass,
     selectedAnswerCssClass,
