@@ -1,20 +1,15 @@
-import logo from "./assets/quiz-logo.png";
-import QuizQuestion from "./components/QuizQuestion";
-import Summary from "./components/Summary";
-import QuizContextProvider, { QuizContext } from "./store/quiz-app-context";
+import Header from './components/Header.jsx';
+import Quiz from './components/Quiz.jsx';
 
 function App() {
-    return (
-        <>
-        <QuizContextProvider>
-        <header>
-        <img src={logo} alt="Logo" />
-        <h1>React Quiz</h1>
-        </header>
-        <QuizQuestion />
-        </QuizContextProvider>
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <main>
+        <Quiz />
+      </main>
+    </>
+  );
 }
 
 export default App;
