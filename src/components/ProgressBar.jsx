@@ -12,16 +12,17 @@ export default function ProgressBar(){
 
         // Logging the state change.
         useEffect(() => {
-            if(quizContext.currentQuestion === 6){
+            if(quizContext.currentQuestion <= 6){
                 console.log(quizContext.selectedAnswerArray);
+                console.log(quizContext.currentQuestion);
             }
         }, [quizContext.selectedAnswerArray]);
 
 
         // Effect for when currentQuestion changes
         useEffect(() => {
-        setMaxValue(1000);
-        setProgressValue(1000);
+        setMaxValue(5000);
+        setProgressValue(5000);
         quizContext.setProgressBarCssClass(undefined);
           // Clear previous interval if exists
         if (tenSecTimerRef.current) {
